@@ -1,0 +1,99 @@
+.banner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    z-index:1000;
+}
+
+.banner-container .banner {
+    background: linear-gradient(-55deg, #FFFFFF 29%, #12abce 29.1%, #12abce 68%, #FFFFFF 68.1%);
+    min-width: 300px;
+    width: 1050px;
+    box-shadow: 0 3px 5px #0005;
+    border-radius: 5px;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: #000;
+}
+
+a.carousel-control-prev, a.carousel-control-next {
+    width: 3%;
+}
+
+.textBanner {
+    position: absolute;
+    top: 35%;
+    left: 61%;
+}
+
+.textBanner span {
+    text-transform: uppercase;
+    color: #5E6973;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.textBanner h3 {
+    color: #5E6973;
+    font-size: 25px;
+}
+
+.textBanner h4 {
+    color: #5E6973;
+    font-size: 35px;
+    padding-bottom: 10px;
+    margin: 10px 0;
+}
+
+.textBanner .btn {
+    font-size: 18px;
+    transition: 0.5s;
+    display: block;
+    height: 50px;
+    width: 150px;
+    background: #5bc0eb;
+    border: none;
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.textBanner .btn:hover {
+    background: rgb(139, 216, 244);
+    scale: 1.1;
+    transition: 0.5s;
+}
+
+
+@media (max-width: 650px){
+    a.carousel-control-prev,     a.carousel-control-next {
+        width: 10%;
+    }
+
+    .banner-container .banner {
+        height: 600px;
+        width: 90%;
+    }
+
+    .carousel-indicators button {
+        position: absolute;
+        bottom: -44px;
+    }
+
+    .banner-container .banner img {
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .textBanner { 
+        text-align: center;
+        position: static;
+    }
+
+    .textBanner .btn {
+        margin: 5px auto;
+    }
+}
+

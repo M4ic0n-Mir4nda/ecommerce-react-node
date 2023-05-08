@@ -1,0 +1,13 @@
+.App-header {
+    display: flex;
+    background: linear-gradient(25deg, #F8C630, #f4cf60);
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.logo {
+    padding: 10px;
+    width: 200px;
+    height: 100px;
+}
+

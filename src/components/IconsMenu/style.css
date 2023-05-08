@@ -1,0 +1,15 @@
+.icons-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.icon {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.icons-container img {
+    margin-right: 30px;
+}
