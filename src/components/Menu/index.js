@@ -6,7 +6,6 @@ function Menu() {
         <section className='menu'>
             <Departments />
             <p>Cupom</p>
-            <p>Promoçoes</p>
             <p>Lista de Compras</p>
         </section>
     )

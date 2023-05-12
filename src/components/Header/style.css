@@ -3,6 +3,8 @@
     background: linear-gradient(25deg, #F8C630, #f4cf60);
     align-items: center;
     justify-content: space-evenly;
+    min-width: 300px;
+    width: 100%;
 }
 
 .logo {

@@ -22,7 +22,7 @@ function Adverts() {
 
     let arrAdvertisedProducts = []
     products.forEach( (produto, indice) => {
-        if (indice > 2) {
+        if (indice > 3) {
             return false
         }
         arrAdvertisedProducts.push(produto)
@@ -34,10 +34,14 @@ function Adverts() {
                 <Carousel>
                     { arrAdvertisedProducts.map((product) => (
                         <Carousel.Item className='carroselItem' key={product.id}>
-                            <ImageProduct src={imgProduct} widthImg='50%'/>
+                            <ImageProduct 
+                                src={`https://cdn-cosmos.bluesoft.com.br/products/${product.CODIGO}`} 
+                                widthImg='200px'
+                                heigthImg='200px'
+                                />
                             <div className='textBanner'>
-                                <h3>{product.descricao}</h3>
-                                <h4>R${product.valor},99</h4>
+                                <h3>{product.DESCRICAO}</h3>
+                                <h4>R${product.PRECOVENDA}</h4>
                                 <p><button className='btn'>Conferir</button></p>
                             </div>
                         </Carousel.Item>

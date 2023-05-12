@@ -4,5 +4,6 @@ const router = Router()
 
 router
     .get('/', ProdutosController.getProdutos)
+    .post('/', ProdutosController.getSearchProdutos)
 
 module.exports = router;

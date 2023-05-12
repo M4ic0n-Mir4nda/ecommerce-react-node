@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { getAllProdutos } from '../../services/produtos';
-import imgProduct from '../../images/trakinas.png'
+//import imgProduct from '../../images/not-found.png'
 import { ImageProduct } from '../ProductImage';
 import styled from 'styled-components'
 
-const CardContainer = styled.section`
+export const CardContainer = styled.section`
   margin: 0 auto;
   width: 1050px;
   background-color: ${props => props.backGround || '#fff'};
@@ -31,25 +31,43 @@ const CardContainer = styled.section`
     width: 86%;
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: auto;
-
-    img {
-      width: 100%
-    }
   }
 `
 
-const CardProduct = styled.div`
+export const CardProduct = styled.div`
   text-align: center;
   border: 2px solid #e7e7e7;
   border-radius: 4px;
   padding: .5rem;
 `
 
-const CardPrice = styled.h3`
-  font-size: 22px;
+export const Description = styled.div`
+  width: 200px;
+  margin-left: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; 
+
+  p {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media(max-width: 558px) {
+    width: 160px;
+  }
 `
 
-const ButtonShopCart = styled.button`
+export const CardPrice = styled.h3`
+  font-size: 22px;
+  padding-top: 15px;
+`
+
+export const ButtonShopCart = styled.button`
   border: none;
   outline: 0;
   padding: 12px;
@@ -64,63 +82,47 @@ const ButtonShopCart = styled.button`
   &:hover {
     opacity: 0.7;
   }
-`
 
-const Empty = styled.p`
-  font-size: 26px;
-  text-align:center
+  @media(max-width: 558px) {
+    padding: 8px;
+  }
 `
 
 function Card() {
 
+  
   const [products, setProducts] = useState([]);
-
+  
   useEffect(() => {
     fetchProducts();
   }, [])
-
+  
   async function fetchProducts() {
     const productsAPI = await getAllProdutos();
     setProducts(productsAPI);
   }
-
+  
   return (
     <>
-      { products !== 'Não encontrado' ? (
-      <CardContainer>
+    <CardContainer>
         { products.map( product => (
-            <CardProduct key={product.id}>
+            <CardProduct key={product.ID}>
               <ImageProduct 
-                src={imgProduct}
-                widthImg='90%' 
-                heigthImg='200px' 
+                src={`https://cdn-cosmos.bluesoft.com.br/products/${product.CODIGO}`}
+                heigthImg='120px'
+                widthImg='120px' 
                 border='1px solid #C7C7C7'
               />
               <CardPrice>
-                R${product.valor}
+                R${product.PRECOVENDA}
               </CardPrice>
-                <p>{product.descricao}</p>
-                <p>
+                <Description><p>{product.DESCRICAO}</p></Description>
                 <ButtonShopCart>
                   Adicionar no carrinho
                 </ButtonShopCart>
-              </p>
             </CardProduct>
         ))}
       </CardContainer>
-    ) : (
-      <CardContainer
-        display='flex'
-        backGround='f1f1f1'
-        heigthText='400px'
-        flexDirection='row'
-        content='center'
-        alignItens='center'
-        boxShadow='none'
-      >
-        <Empty>Não há itens!</Empty>
-      </CardContainer>
-    )}
     </>
 )}
 

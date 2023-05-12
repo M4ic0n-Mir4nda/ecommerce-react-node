@@ -6,5 +6,6 @@ const routes = app => {
     app.use(express.json())
     app.use(cors({origin: "*"}))
     app.use('/produtos', produtosRoutes)
+    //app.use(produtosRoutes)
 }
 module.exports = routes;

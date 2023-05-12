@@ -13,3 +13,9 @@
 .icons-container img {
     margin-right: 30px;
 }
+
+@media (max-width: 556px) {
+    .icons-container img {
+        margin-right: 0;
+    } 
+}

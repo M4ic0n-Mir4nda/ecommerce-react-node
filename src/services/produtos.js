@@ -8,6 +8,15 @@ async function getAllProdutos() {
     return response.data
 }
 
+async function getSearchProdutos(inputElement) {
+    const response = await produtosAPI.post('/', {}, {
+        params: { prod: `${inputElement}` }
+    })
+
+    return response.data;
+}
+
 export {
-    getAllProdutos
+    getAllProdutos,
+    getSearchProdutos
 }

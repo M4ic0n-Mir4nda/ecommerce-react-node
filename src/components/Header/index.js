@@ -1,14 +1,9 @@
 import './style.css';
-import Search from '../Search';
-import IconsMenu from '../IconsMenu';
-import logo from '../../images/logo.png'
 
-function Header() {
+function Header({children}) {
     return (
         <header className="App-header">
-            <img src={logo} className='logo'/>
-            <Search />
-            <IconsMenu />
+            {children}
         </header>
     )
 }
