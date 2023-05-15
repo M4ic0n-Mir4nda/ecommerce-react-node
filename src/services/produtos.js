@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const produtosAPI = axios.create({baseURL: 'http://localhost:5000/produtos'})
 
-async function getAllProdutos() {
-    const response = await produtosAPI.get('/')
+async function getAllProdutos(numberPage, limitPage) {
+    const response = await produtosAPI.get(`/?page=${numberPage}&limit=${limitPage}`)
 
     return response.data
 }

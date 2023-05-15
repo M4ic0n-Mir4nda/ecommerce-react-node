@@ -32,15 +32,12 @@ const Button = styled.button`
     border-radius: 0 10px 10px 0px;
 `
 
-function Search(props) {
+function Search() {
 
     const [busca, setBusca] = useState('')
 
     const aoClicar = (event) => {
         event.preventDefault()
-        props.Aodigitado({
-            busca
-        })
     }
 
     return (

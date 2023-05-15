@@ -8,7 +8,7 @@ class ProdutosController {
 
     static async getProdutos(req, res) {
         try {
-            const produtos = await getAllProdutosService();
+            const produtos = await getAllProdutosService(req);
             return res.status(200).json(produtos);
         } catch (err) {
             return res.status(500).send('ocorreu um erro', err);

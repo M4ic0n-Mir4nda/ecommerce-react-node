@@ -1,11 +1,13 @@
 const { Estoque } = require('../models')
 const { Op } = require('sequelize')
 
-async function getAllProdutosService() {
+async function getAllProdutosService(req) {
     try {
+        const numberPages = req.query.page;
+        const limitPages = req.query.limit;
         const produtos = await Estoque.findAll({
             attributes: ['ID', 'CODIGO', 'DESCRICAO', 'PRECOVENDA'],
-            limit: 52
+            limit: parseInt(limitPages) + parseInt(numberPages)
         })
         return produtos;
     } catch (err) {

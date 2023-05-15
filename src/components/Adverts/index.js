@@ -16,7 +16,7 @@ function Adverts() {
     }, [])
   
     async function fetchProducts() {
-      const productsAPI = await getAllProdutos();
+      const productsAPI = await getAllProdutos(1, 4);
       setProducts(productsAPI);
     }
 

@@ -1,6 +1,3 @@
-import { useEffect, useState } from 'react';
-import { getAllProdutos } from '../../services/produtos';
-//import imgProduct from '../../images/not-found.png'
 import { ImageProduct } from '../ProductImage';
 import styled from 'styled-components'
 
@@ -88,24 +85,12 @@ export const ButtonShopCart = styled.button`
   }
 `
 
-function Card() {
-
-  
-  const [products, setProducts] = useState([]);
-  
-  useEffect(() => {
-    fetchProducts();
-  }, [])
-  
-  async function fetchProducts() {
-    const productsAPI = await getAllProdutos();
-    setProducts(productsAPI);
-  }
+function Card({array}) {  
   
   return (
     <>
     <CardContainer>
-        { products.map( product => (
+        { array.map( product => (
             <CardProduct key={product.ID}>
               <ImageProduct 
                 src={`https://cdn-cosmos.bluesoft.com.br/products/${product.CODIGO}`}

@@ -1,7 +1,5 @@
-import { CardContainer, CardProduct, Description, CardPrice, ButtonShopCart } from '../components/Card';
-import { ImageProduct } from '../components/ProductImage';
-import { useState } from 'react';
-import { getSearchProdutos } from '../services/produtos';
+import { useState, useEffect } from 'react';
+import { getSearchProdutos, getAllProdutos } from '../services/produtos';
 import Adverts from '../components/Adverts';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
@@ -45,26 +43,51 @@ const Logo = styled.img`
 `
 
 function Home() {
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  const [cardsPage, setCardsPage] = useState(5);
+  const [loading, setLoading] = useState(true);
 
-  const [busca, setBusca] = useState('')
-  const [resposta, setResposta] = useState([])
+  const [products, setProducts] = useState([]);
+  const [response, setResponse] = useState([]);
 
-  const aoSalvar = async (event) => {
+  useEffect(() => {
+    fetchProducts();
+  }, [page])
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [handleScroll])
+
+  function handleScroll() {
+    if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight && page === totalPage && loading) {
+      return;
+    }
+    setPage(page + 1);
+  }
+  
+  async function fetchProducts() {
+    const productsAPI = await getAllProdutos(page, cardsPage);
+    setProducts(productsAPI);
+  }
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    const pesquisados = await getSearchProdutos(busca)
-    console.log(pesquisados)
-    setResposta(pesquisados)
-}
+    const pesquisados = await getSearchProdutos(search)
+    setResponse(pesquisados)
+  }
 
   return (
     <GlobalContainer>
-      <form onSubmit={aoSalvar}>
+      <form onSubmit={handleSubmit}>
         <HeaderContainer>
           <SearchContainer>
             <Logo src={logo} alt='Logo da Empresa'/>
             <Input 
-              aoAlterado={valor => setBusca(valor)}
-              valor={busca}
+              aoAlterado={valor => setSearch(valor)}
+              valor={search}
             />
             <Buttom />
             <IconsMenu />
@@ -72,27 +95,8 @@ function Home() {
         </HeaderContainer>
         <Menu />
         <Adverts />
-        { resposta.length > 0 ? (
-            <CardContainer>
-              { resposta.map (product => (
-                <CardProduct key={product.ID}>
-                <ImageProduct 
-                  src={`https://cdn-cosmos.bluesoft.com.br/products/${product.CODIGO}`}
-                  heigthImg='120px'
-                  widthImg='120px' 
-                  border='1px solid #C7C7C7'
-                />
-                <CardPrice>
-                  R${product.PRECOVENDA}
-                </CardPrice>
-                  <Description><p>{product.DESCRICAO}</p></Description>
-                  <ButtonShopCart>
-                    Adicionar no carrinho
-                  </ButtonShopCart>
-              </CardProduct>
-              ))}
-              </CardContainer>
-        ) : <Card /> }
+        { response.length > 0 ? <Card array={response}/>
+         : <Card array={products}/> }
         <Footer />
       </form>
     </GlobalContainer>
