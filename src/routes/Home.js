@@ -46,14 +46,16 @@ function Home() {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const [cardsPage, setCardsPage] = useState(5);
+  const [cardsPage, setCardsPage] = useState(12);
   const [loading, setLoading] = useState(true);
+  const [consulta, setConsulta] = useState('')
 
   const [products, setProducts] = useState([]);
-  const [response, setResponse] = useState([]);
+  const [response, setResponse] = useState('');
 
   useEffect(() => {
     fetchProducts();
+    fetchSearchs()
   }, [page])
 
   useEffect(() => {
@@ -62,10 +64,10 @@ function Home() {
   }, [handleScroll])
 
   function handleScroll() {
-    if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight && page === totalPage && loading) {
-      return;
+    if (window.scrollY + window.innerHeight >= document.documentElement.offsetHeight) {
+      setPage(page + 1);
     }
-    setPage(page + 1);
+    return;
   }
   
   async function fetchProducts() {
@@ -73,10 +75,18 @@ function Home() {
     setProducts(productsAPI);
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    const pesquisados = await getSearchProdutos(search)
+  async function fetchSearchs() {
+    const pesquisados = await getSearchProdutos(consulta, page, cardsPage)
     setResponse(pesquisados)
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+    const pesquisados = await getSearchProdutos(search, page, cardsPage)
+    setResponse(pesquisados)
+    setConsulta(search)
+    setPage(1)
+    setCardsPage(12)
   }
 
   return (
@@ -95,8 +105,8 @@ function Home() {
         </HeaderContainer>
         <Menu />
         <Adverts />
-        { response.length > 0 ? <Card array={response}/>
-         : <Card array={products}/> }
+        { response.length > 0 ? <Card array={response} />
+         : <Card array={products} /> }
         <Footer />
       </form>
     </GlobalContainer>

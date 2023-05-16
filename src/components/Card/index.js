@@ -1,5 +1,7 @@
 import { ImageProduct } from '../ProductImage';
+import imageNotFound from '../../images/not-found.png'
 import styled from 'styled-components'
+import { useState } from 'react';
 
 export const CardContainer = styled.section`
   margin: 0 auto;
@@ -85,12 +87,12 @@ export const ButtonShopCart = styled.button`
   }
 `
 
-function Card({array}) {  
-  
+function Card({array}) {
+
   return (
     <>
     <CardContainer>
-        { array.map( product => (
+        { array.map( product => 
             <CardProduct key={product.ID}>
               <ImageProduct 
                 src={`https://cdn-cosmos.bluesoft.com.br/products/${product.CODIGO}`}
@@ -105,8 +107,8 @@ function Card({array}) {
                 <ButtonShopCart>
                   Adicionar no carrinho
                 </ButtonShopCart>
-            </CardProduct>
-        ))}
+            </CardProduct>    
+        )}
       </CardContainer>
     </>
 )}

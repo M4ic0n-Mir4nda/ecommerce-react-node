@@ -8,10 +8,8 @@ async function getAllProdutos(numberPage, limitPage) {
     return response.data
 }
 
-async function getSearchProdutos(inputElement) {
-    const response = await produtosAPI.post('/', {}, {
-        params: { prod: `${inputElement}` }
-    })
+async function getSearchProdutos(inputElement, numberPage, limitPage) {
+    const response = await produtosAPI.post(`/?prod=${inputElement}&page=${numberPage}&limit=${limitPage}`)
 
     return response.data;
 }

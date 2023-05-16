@@ -18,9 +18,10 @@ const ImageSearch = styled.img`
 `
 
 function Buttom() {
+
     return (
-        <ButtonContainer type="submit">
-            <ImageSearch src={search} alt='Imagem de busca'/>
+        <ButtonContainer type="submit" >
+            <ImageSearch src={search} alt='Imagem de busca' />
         </ButtonContainer>
     )
 }

@@ -7,7 +7,7 @@ async function getAllProdutosService(req) {
         const limitPages = req.query.limit;
         const produtos = await Estoque.findAll({
             attributes: ['ID', 'CODIGO', 'DESCRICAO', 'PRECOVENDA'],
-            limit: parseInt(limitPages) + parseInt(numberPages)
+            limit: parseInt(numberPages) * parseInt(limitPages)
         })
         return produtos;
     } catch (err) {
@@ -17,6 +17,8 @@ async function getAllProdutosService(req) {
 
 async function getSearchProdutosService(req) {
     try {
+        const numberPages = req.query.page;
+        const limitPages = req.query.limit;
         const researchedProducts = req.query.prod;
         const results = await Estoque.findAll({
             where: { 
@@ -25,7 +27,7 @@ async function getSearchProdutosService(req) {
                 }
             },
             attributes: ['ID', 'CODIGO', 'DESCRICAO', 'PRECOVENDA'],
-            limit: 52
+            limit: parseInt(numberPages) * parseInt(limitPages)
         })
         return results;
     } catch (err) {

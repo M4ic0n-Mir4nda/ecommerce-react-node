@@ -1,7 +1,6 @@
 import './style.css'
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
-import imgProduct from '../../images/trakinas.png'
 import Carousel from 'react-bootstrap/Carousel';
 import { ImageProduct } from '../ProductImage';
 import { getAllProdutos } from '../../services/produtos';
