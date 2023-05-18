@@ -1,4 +1,9 @@
-const { getAllProdutosService, getSearchProdutosService } = require('../services/ProdutosServices');
+const { 
+    getAllProdutosService, 
+    getSearchProdutosService, 
+    searchForProductsDepartmentServices,
+} 
+= require('../services/ProdutosServices');
 
 class ProdutosController {
     constructor(descricao, valor) {
@@ -19,6 +24,15 @@ class ProdutosController {
         try {
             const produto = await getSearchProdutosService(req);
             return res.status(200).json(produto)
+        } catch (err) {
+            return res.status(500).send('ocorreu um erro', err);
+        }
+    }
+
+    static async searchForProductsDepartment(req, res) {
+        try {
+            const produtosDepartamento = await searchForProductsDepartmentServices(req);
+            return res.status(200).json(produtosDepartamento);
         } catch (err) {
             return res.status(500).send('ocorreu um erro', err);
         }

@@ -22,16 +22,18 @@ const GlobalContainer = styled.div`
 
 const SearchContainer = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     margin-left: 20px;
 `
 
-const HeaderContainer = styled.header`
+const AlignSearch = styled.div`
   display: flex;
-  background: linear-gradient(25deg, #F8C630, #f4cf60);
   align-items: center;
-  justify-content: space-evenly;
+`
+
+const HeaderContainer = styled.header`
+  background: linear-gradient(25deg, #F8C630, #f4cf60);
   min-width: 300px;
   width: 100%;
 `
@@ -45,13 +47,15 @@ const Logo = styled.img`
 function Home() {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(0);
-  const [cardsPage, setCardsPage] = useState(12);
-  const [loading, setLoading] = useState(true);
-  const [consulta, setConsulta] = useState('')
-
+  const [cardsPage, setCardsPage] = useState(32);
+  const [item, setItem] = useState('')
+  const [departments, setDepartments] = useState([])
   const [products, setProducts] = useState([]);
   const [response, setResponse] = useState('');
+
+  const definedDepartment = (department) => {
+    setDepartments(department)
+  }
 
   useEffect(() => {
     fetchProducts();
@@ -60,7 +64,7 @@ function Home() {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll])
 
   function handleScroll() {
@@ -76,17 +80,19 @@ function Home() {
   }
 
   async function fetchSearchs() {
-    const pesquisados = await getSearchProdutos(consulta, page, cardsPage)
-    setResponse(pesquisados)
+    const pesquisados = await getSearchProdutos(item, page, cardsPage);
+    setResponse(pesquisados);
   }
 
   async function handleSubmit(event) {
     event.preventDefault()
     const pesquisados = await getSearchProdutos(search, page, cardsPage)
     setResponse(pesquisados)
-    setConsulta(search)
+    setItem(search)
     setPage(1)
-    setCardsPage(12)
+    setCardsPage(32)
+    setSearch('')
+    setDepartments([]);
   }
 
   return (
@@ -95,18 +101,23 @@ function Home() {
         <HeaderContainer>
           <SearchContainer>
             <Logo src={logo} alt='Logo da Empresa'/>
-            <Input 
-              aoAlterado={valor => setSearch(valor)}
-              valor={search}
-            />
-            <Buttom />
+            <AlignSearch>
+              <Input 
+                aoAlterado={valor => setSearch(valor)}
+                valor={search}
+              />
+              <Buttom />
+            </AlignSearch>
             <IconsMenu />
           </SearchContainer>
         </HeaderContainer>
-        <Menu />
+        <Menu 
+          arrDepartments={departamentos => definedDepartment(departamentos)}
+        />
         <Adverts />
-        { response.length > 0 ? <Card array={response} />
-         : <Card array={products} /> }
+        { 
+          departments.length > 0 ? <Card array={departments}/> : response.length > 0 ? <Card array={response} /> : <Card array={products} /> 
+        }
         <Footer />
       </form>
     </GlobalContainer>

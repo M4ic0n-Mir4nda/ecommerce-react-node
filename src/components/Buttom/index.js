@@ -10,10 +10,14 @@ const ButtonContainer = styled.button`
 const ImageSearch = styled.img`
     border: none;
     background-color: #fff;
-    padding: 9px;
+    padding: 10px;
     border-radius: 0 10px 10px 0px;
     cursor: pointer;
-    margin-left: 20px
+    margin-left: 20px;
+
+    @media (max-width: 650px) {
+        margin-left: 1px;
+    }
 }
 `
 

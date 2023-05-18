@@ -4,7 +4,7 @@ import './index.css';
 import Home from './routes/Home';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Busca from './routes/Busca';
+import Feature from './components/Feature';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +12,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />}/>
-        <Route path='/busca' element={<Busca />}/>
+        <Route path='/cupom' element={<Feature />} />
+        <Route path='/promocoes' element={<Feature />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

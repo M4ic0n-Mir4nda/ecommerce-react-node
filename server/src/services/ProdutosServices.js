@@ -1,5 +1,5 @@
-const { Estoque } = require('../models')
-const { Op } = require('sequelize')
+const { Estoque } = require('../models');
+const { Op } = require('sequelize');
 
 async function getAllProdutosService(req) {
     try {
@@ -11,7 +11,7 @@ async function getAllProdutosService(req) {
         })
         return produtos;
     } catch (err) {
-        return 'Não encontrado'
+        return 'Não encontrado', err
     }
 }
 
@@ -35,4 +35,20 @@ async function getSearchProdutosService(req) {
     }
 }
 
-module.exports = { getAllProdutosService, getSearchProdutosService }
+async function searchForProductsDepartmentServices(req) {
+    try {
+        const numDepartamento = req.query.depart;
+        const produtosPorDepartamento = await Estoque.findAll({
+            where: {
+                DEPTO: parseInt(numDepartamento),
+            },
+            attributes: ['CODIGO', 'DESCRICAO', 'DEPTO', 'PRECOVENDA'],
+            limit: 32,
+        })
+        return produtosPorDepartamento;
+    } catch (err) {
+        return 'Não encontrado', err;
+    }
+}
+
+module.exports = { getAllProdutosService, getSearchProdutosService, searchForProductsDepartmentServices };

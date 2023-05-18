@@ -1,7 +1,6 @@
 import { ImageProduct } from '../ProductImage';
 import imageNotFound from '../../images/not-found.png'
 import styled from 'styled-components'
-import { useState } from 'react';
 
 export const CardContainer = styled.section`
   margin: 0 auto;
@@ -27,8 +26,15 @@ export const CardContainer = styled.section`
 
   @media (max-width: 650px) {
     display: grid;
-    width: 86%;
+    width: 100%;
     grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+  }
+
+  @media (max-width: 370px) {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
     grid-auto-rows: auto;
   }
 `
@@ -59,9 +65,15 @@ export const Description = styled.div`
   @media(max-width: 558px) {
     width: 160px;
   }
+
+  @media(max-width: 370px) {
+    width: 100%;
+    margin: 0 auto;
+  }
 `
 
 export const CardPrice = styled.h3`
+  text-align: center;
   font-size: 22px;
   padding-top: 15px;
 `
@@ -83,7 +95,7 @@ export const ButtonShopCart = styled.button`
   }
 
   @media(max-width: 558px) {
-    padding: 8px;
+    padding: 5px;
   }
 `
 
@@ -101,7 +113,7 @@ function Card({array}) {
                 border='1px solid #C7C7C7'
               />
               <CardPrice>
-                R${product.PRECOVENDA}
+                R${parseFloat(product.PRECOVENDA).toFixed(2).replace('.', ',')}
               </CardPrice>
                 <Description><p>{product.DESCRICAO}</p></Description>
                 <ButtonShopCart>
