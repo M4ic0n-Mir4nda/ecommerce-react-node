@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getSearchProdutos, getAllProdutos } from '../services/produtos';
+import { getSearchProdutos, getAllProdutos, searchForProductsDepartment } from '../services/produtos';
 import Adverts from '../components/Adverts';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
@@ -45,21 +45,32 @@ const Logo = styled.img`
 `
 
 function Home() {
+  
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [cardsPage, setCardsPage] = useState(32);
-  const [item, setItem] = useState('')
-  const [departments, setDepartments] = useState([])
+  const [item, setItem] = useState('');
   const [products, setProducts] = useState([]);
+  const [idDepartment, setIdDepartment] = useState(0);
+  const [departments, setDepartments] = useState([]);
+  const [responseDepartment, setResponseDepartment] = useState([]);
   const [response, setResponse] = useState('');
 
   const definedDepartment = (department) => {
     setDepartments(department)
+    setResponseDepartment(department)
+    setPage(1)
+    setCardsPage(32)
+  }
+
+  const idForDepartment = (id) => {
+    setIdDepartment(id)
   }
 
   useEffect(() => {
     fetchProducts();
-    fetchSearchs()
+    fetchSearchs();
+    fetchDepartments();
   }, [page])
 
   useEffect(() => {
@@ -80,8 +91,13 @@ function Home() {
   }
 
   async function fetchSearchs() {
-    const pesquisados = await getSearchProdutos(item, page, cardsPage);
-    setResponse(pesquisados);
+    const pesquisados = await getSearchProdutos(item, page, cardsPage)
+    setResponse(pesquisados)
+  }
+
+  async function fetchDepartments() {
+    const departmentsAPI = await searchForProductsDepartment(idDepartment, page, cardsPage)
+    setResponseDepartment(departmentsAPI)
   }
 
   async function handleSubmit(event) {
@@ -92,7 +108,8 @@ function Home() {
     setPage(1)
     setCardsPage(32)
     setSearch('')
-    setDepartments([]);
+    setDepartments([])
+    setResponseDepartment([])
   }
 
   return (
@@ -113,10 +130,11 @@ function Home() {
         </HeaderContainer>
         <Menu 
           arrDepartments={departamentos => definedDepartment(departamentos)}
+          idDepartments={idDepartamento => idForDepartment(idDepartamento)}
         />
         <Adverts />
         { 
-          departments.length > 0 ? <Card array={departments}/> : response.length > 0 ? <Card array={response} /> : <Card array={products} /> 
+          departments.length > 0 ? <Card array={responseDepartment}/> : response.length > 0 ? <Card array={response} /> : <Card array={products} /> 
         }
         <Footer />
       </form>

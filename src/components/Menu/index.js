@@ -5,7 +5,7 @@ import { getAllDepartments } from '../../services/departments';
 import { searchForProductsDepartment } from '../../services/produtos';
 import iconMenu from '../../images/iconMenuDepartamento.svg';
 
-function Menu({arrDepartments}) {
+function Menu({arrDepartments, idDepartments}) {
 
     const [departments, setDepartments] = useState([])
 
@@ -14,13 +14,14 @@ function Menu({arrDepartments}) {
     }, [])
 
     async function fetchDepartmentsAPI() {
-        const deparmentsAPI = await getAllDepartments();
+        const deparmentsAPI = await getAllDepartments()
         setDepartments(deparmentsAPI)
     }
 
     async function handleClick(id) {
-        const produtosAPI = await searchForProductsDepartment(id);
+        const produtosAPI = await searchForProductsDepartment(id)
         arrDepartments(produtosAPI)
+        idDepartments(id)
     }
     
     return (

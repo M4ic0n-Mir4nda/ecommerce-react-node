@@ -37,13 +37,15 @@ async function getSearchProdutosService(req) {
 
 async function searchForProductsDepartmentServices(req) {
     try {
+        const numberPages = req.query.page;
+        const limitPages = req.query.limit;
         const numDepartamento = req.query.depart;
         const produtosPorDepartamento = await Estoque.findAll({
             where: {
                 DEPTO: parseInt(numDepartamento),
             },
             attributes: ['CODIGO', 'DESCRICAO', 'DEPTO', 'PRECOVENDA'],
-            limit: 32,
+            limit: parseInt(numberPages) * parseInt(limitPages),
         })
         return produtosPorDepartamento;
     } catch (err) {

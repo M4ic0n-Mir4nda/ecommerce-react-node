@@ -14,8 +14,8 @@ async function getSearchProdutos(inputElement, numberPage, limitPage) {
     return response.data;
 }
 
-async function searchForProductsDepartment(idDepartment) {
-    const response = await produtosAPI.post(`/produtos/departamentos/?depart=${idDepartment}`);
+async function searchForProductsDepartment(idDepartment, numberPage = 1, limitPage = 32) {
+    const response = await produtosAPI.post(`/produtos/departamentos/?depart=${idDepartment}&page=${numberPage}&limit=${limitPage}`);
 
     return response.data;
 }
