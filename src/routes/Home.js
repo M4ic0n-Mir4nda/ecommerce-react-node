@@ -45,16 +45,23 @@ const Logo = styled.img`
 `
 
 function Home() {
-  
-  const [search, setSearch] = useState('');
+
+  // limite de páginas e cards na tela
   const [page, setPage] = useState(1);
   const [cardsPage, setCardsPage] = useState(32);
+
+  // valores dos itens da busca
+  const [search, setSearch] = useState('');
   const [item, setItem] = useState('');
+  const [response, setResponse] = useState('');
+
+  // valores de todos os produtos na home
   const [products, setProducts] = useState([]);
+
+  // DEPTO(codigo) de departamentos e arrays dos itens em departamentos
   const [idDepartment, setIdDepartment] = useState(0);
   const [departments, setDepartments] = useState([]);
   const [responseDepartment, setResponseDepartment] = useState([]);
-  const [response, setResponse] = useState('');
 
   const definedDepartment = (department) => {
     setDepartments(department)

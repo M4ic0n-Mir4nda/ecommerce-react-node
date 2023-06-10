@@ -1,6 +1,7 @@
 import { ImageProduct } from '../ProductImage';
 import imageNotFound from '../../images/not-found.png'
 import styled from 'styled-components'
+import { useState } from 'react';
 
 export const CardContainer = styled.section`
   margin: 0 auto;
@@ -101,6 +102,14 @@ export const ButtonShopCart = styled.button`
 
 function Card({array}) {
 
+  const [cart, setCart] = useState([])
+  
+  function addCart(event, prod) {
+      event.preventDefault()
+      setCart([...cart, prod])
+      console.log(cart)
+  }
+
   return (
     <>
     <CardContainer>
@@ -116,7 +125,7 @@ function Card({array}) {
                 R${parseFloat(product.PRECOVENDA).toFixed(2).replace('.', ',')}
               </CardPrice>
                 <Description><p>{product.DESCRICAO}</p></Description>
-                <ButtonShopCart>
+                <ButtonShopCart onClick={(event) => addCart(event, product)}>
                   Adicionar no carrinho
                 </ButtonShopCart>
             </CardProduct>    
